@@ -47,6 +47,7 @@ include 'view/layout/nav_2.php';
                     <tbody>
                     <a href="#">
                         <?php foreach ($borrows as $borrow): ?>
+                        <?php if($borrow->status == 'Borrow'):?>
                             <tr>
                                 <td><a href="index.php?pages=borrow&actions=detail&id=<?php echo $borrow->id ?>"><?php echo $borrow->id ?></a></td>
                                 <td><?php echo $borrow->student_id ?></td>
@@ -58,10 +59,22 @@ include 'view/layout/nav_2.php';
                                     <a title=""
                                        href="index.php?pages=borrow&actions=edit&id=<?php echo $borrow->id; ?>"
                                        class="btn btn-success btn-sm">Edit</a>
-                                    <a href="index.php?pages=borrow&actions=delete&id=<?php echo $borrow->id; ?>"
-                                       class="btn btn-danger btn-sm"> × Remove</a>
                                 </td>
                             </tr>
+                        <?php else: ?>
+                        <tr>
+                            <td><a href="index.php?pages=borrow&actions=detail&id=<?php echo $borrow->id ?>"><?php echo $borrow->id ?></a></td>
+                            <td><?php echo $borrow->student_id ?></td>
+                            <td><?php echo $borrow->borrow_date ?></td>
+                            <td><?php echo $borrow->return_date ?></td>
+                            <td><?php echo $borrow->pay_date ?></td>
+                            <td><?php echo $borrow->status ?></td>
+                            <td class="text-right">
+                                <a href="index.php?pages=borrow&actions=delete&id=<?php echo $borrow->id; ?>"
+                                   class="btn btn-danger btn-sm"> × Remove</a>
+                            </td>
+                        </tr>
+                        <?php endif;?>
                         <?php endforeach; ?>
                     </a>
                     </tbody>

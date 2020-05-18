@@ -11,6 +11,7 @@ class Borrows
     protected $borrow_date;
     protected $return_date;
     protected $status;
+    protected $pay_date;
 
     public function __construct($id, $student_id, $return_date)
     {
@@ -19,6 +20,7 @@ class Borrows
         $this->borrow_date = date('Y-m-d');
         $this->return_date = $return_date;
         $this->status = 'Borrow';
+        $this->pay_date = null;
     }
 
     /**
@@ -59,6 +61,38 @@ class Borrows
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * @return null
+     */
+    public function getPayDate()
+    {
+        return $this->pay_date;
+    }
+
+    /**
+     * @param string $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * @param false|string $borrow_date
+     */
+    public function setBorrowDate($borrow_date)
+    {
+        $this->borrow_date = $borrow_date;
+    }
+
+    /**
+     * @param null $pay_date
+     */
+    public function setPayDate($pay_date)
+    {
+        $this->pay_date = $pay_date;
     }
 
 }

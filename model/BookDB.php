@@ -45,6 +45,30 @@ class BookDB extends LibraryDB
         $stmt->execute();
     }
 
+    function update($oldId, $book)
+    {
+        $id = $book->getId();
+        $name = $book->getName();
+        $author = $book->getAuthor();
+        $price = $book->getPrice();
+        $categoryId = $book->getCategoryId();
+        $image = $book->getImage();
+        $producer = $book->getProducer();
+        $numberOfBooks = $book->getNumberOfBooks();
+
+        $sql = "UPDATE $this->nameTable SET id = ?, name = ?, category_id = ?, author = ?, price = ?, image = ?, producer = ?, number_of_books = ? WHERE id = '$oldId';";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(1, $id);
+        $stmt->bindParam(2, $name);
+        $stmt->bindParam(3, $categoryId);
+        $stmt->bindParam(4, $author);
+        $stmt->bindParam(5, $price);
+        $stmt->bindParam(6, $image);
+        $stmt->bindParam(7, $producer);
+        $stmt->bindParam(8, $numberOfBooks);
+        $stmt->execute();
+    }
+
 
     function borrowBook($id)
     {

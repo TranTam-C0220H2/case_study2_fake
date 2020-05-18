@@ -101,27 +101,33 @@ class ControllerBorrow
             $id = $_REQUEST['id'];
             $_SESSION['pay_date'] = $_REQUEST['pay_date'];
             $_SESSION['status'] = $_REQUEST['status'];
-            $borrowDate = $_REQUEST['borrow_date'];
-            $differentDate = strtotime($_SESSION['pay_date']) - strtotime(date($_SESSION['status']));
+            $borrowDate = $_REQUEST['borrowDate'];
+            $differentDate = strtotime($_SESSION['pay_date']) - strtotime(date($borrowDate));
             if ($differentDate > 0) {
                 $detailBorrow = new DetailBorrowDB();
                 $book = new BookDB();
                 $student = new StudentsDB();
                 if ($_SESSION['status'] == 'Done') {
-                    foreach ($detailBorrow->getBookId($id) as $item) {
+                    foreach ($detailBorrow->getBookId($_SESSION['id']) as $item) {
                         $bookId = $item->book_id;
                         $book->updateDoneBorrow($bookId);
                     }
                     $studentId = $this->borrow->getDataById('student_id', $id);
                     $student->updateStatus('Clean', $studentId);
-                    
+                    header('Location: index.php?pages=borrow');
+                } else {
+                    $_SESSION['errorStatus'] = 'Edit status';
+                    header('Location: index.php?pages=borrow&actions=edit&id=' . $id);
                 }
-            } else {
 
+                $this->borrow->edit($id, $_SESSION['status'], $_SESSION['pay_date']);
+            } else {
+                $_SESSION['errorPayDate'] = 'Pay Date is invalid';
+                header('Location: index.php?pages=borrow&actions=edit&id=' . $id);
             }
         } else {
-            $_SESSION['oldId'] = $_REQUEST['id'];
-            $borrow = $this->borrow->get($_SESSION['oldId']);
+            $id = $_REQUEST['id'];
+            $borrow = $this->borrow->get($id);
             $payDate = $borrow->pay_date;
             $status = $borrow->status;
             $borrowDate = $borrow->borrow_date;
@@ -131,7 +137,17 @@ class ControllerBorrow
 
     function delete()
     {
-
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $id = $_REQUEST['id'];
+            $detailBorrow = new DetailBorrowDB();
+            $detailBorrow->deleteBorrowId($id);
+            $this->borrow->delete($id);
+            header('Location: index.php?pages=borrow');
+        } else {
+            $id = $_REQUEST['id'];
+            $borrow = $this->borrow->getDataById('name', $id);
+            include 'view/borrow/delete.php';
+        }
     }
 
     function search()

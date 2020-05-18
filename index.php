@@ -232,4 +232,7 @@ if (isset($_REQUEST['pages'])) {
             checkTrueLogin();
             $user->login();
     }
+} else {
+    checkFalseLogin();
+    $home->show();
 }

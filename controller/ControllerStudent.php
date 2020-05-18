@@ -5,6 +5,8 @@ namespace Controller;
 
 
 use Library\Students;
+use Model\BorrowDB;
+use Model\DetailBorrowDB;
 use Model\StudentsDB;
 
 class ControllerStudent
@@ -117,7 +119,16 @@ class ControllerStudent
     }
     function delete() {
         if ($_SERVER['REQUEST_METHOD']=='POST') {
-
+            $id = $_REQUEST['id'];
+            $borrow = new BorrowDB();
+            $detailBorrow = new DetailBorrowDB();
+            $borrowId = $borrow->getIdByStudentId($id);
+            foreach ($borrowId as $item) {
+                $detailBorrow->deleteBorrowId($item->id);
+                $borrow->delete($item->id);
+            }
+            $this->student->delete($id);
+            header('Location: index.php?pages=student');
         } else {
             $id = $_REQUEST['id'];
             $name = $this->student->getDataById('name',$id);

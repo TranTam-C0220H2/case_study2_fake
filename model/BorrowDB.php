@@ -32,7 +32,13 @@ class BorrowDB extends LibraryDB
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-    function update($status,$pay_date) {
-
+    function edit($id,$status,$payDate) {
+       $sql = "UPDATE $this->nameTable SET status = $status, pay_date = $payDate WHERE id = '$id';";
+       $this->conn->query($sql);
+    }
+    function getIdByStudentId($studentId) {
+        $sql = "SELECT id FROM $this->nameTable WHERE student_id = '$studentId';";
+        $stmt = $this->conn->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 }
