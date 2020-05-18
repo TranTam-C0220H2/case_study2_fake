@@ -132,6 +132,7 @@ class ControllerBook
             $id = $_REQUEST['id'];
             $detail = new DetailBorrowDB();
             $detail->deleteBookId($id);
+            unlink('images/'.$this->book->getDataById('image',$id)->image);
             $this->book->delete($id);
             header('Location: index.php?pages=book');
         } else {

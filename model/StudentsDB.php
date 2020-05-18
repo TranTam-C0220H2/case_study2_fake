@@ -66,6 +66,6 @@ class StudentsDB extends LibraryDB
 
     function updateStatus($value, $id) {
         $sql = "UPDATE $this->nameTable SET status = '$value' WHERE id = '$id';";
-        $stmt = $this->conn->query($sql);
+        $this->conn->query($sql);
     }
 }

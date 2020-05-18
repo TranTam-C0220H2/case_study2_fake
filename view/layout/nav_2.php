@@ -6,59 +6,8 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="view/layout/nav.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <style>
-
-        /*author: Limon*/
-        .navbar-nav .nav-link {
-            position: relative;
-        }
-
-        .navbar-nav .nav-link:hover,
-        .navbar-nav .nav-link.active {
-            color: #ff7700;
-        }
-
-        .navbar-nav .nav-link::before {
-            content: "";
-            position: absolute;
-            background: #ff7700;
-            width: 48%;
-            bottom: 0;
-            left: -48%;
-            z-index: 0;
-            transition: 0.6s;
-        }
-
-        .navbar-nav .nav-link::after {
-            content: "";
-            position: absolute;
-            background: #ff7700;
-            width: 48%;
-            bottom: 0;
-            height: 0;
-            right: -48%;
-            z-index: 0;
-            transition: 0.6s;
-        }
-
-
-        .navbar-nav .nav-link:hover::before,
-        .navbar-nav .nav-link.active::before {
-            height: 2px;
-            left: 5%;
-            transition: 0.6s;
-        }
-
-        .navbar-nav .nav-link:hover::after,
-        .navbar-nav .nav-link.active::after {
-            height: 2px;
-            right: -5%;
-            transition: 0.6s;
-        }
-
-    </style>
-
 </head>
 <body>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">

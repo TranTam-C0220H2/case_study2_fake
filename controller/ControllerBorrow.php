@@ -108,19 +108,20 @@ class ControllerBorrow
                 $book = new BookDB();
                 $student = new StudentsDB();
                 if ($_SESSION['status'] == 'Done') {
-                    foreach ($detailBorrow->getBookId($_SESSION['id']) as $item) {
+                    foreach ($detailBorrow->getBookId($id) as $item) {
                         $bookId = $item->book_id;
                         $book->updateDoneBorrow($bookId);
                     }
-                    $studentId = $this->borrow->getDataById('student_id', $id);
+                    $studentId = $this->borrow->getDataById('student_id', $id)->student_id;
                     $student->updateStatus('Clean', $studentId);
-                    header('Location: index.php?pages=borrow');
                 } else {
                     $_SESSION['errorStatus'] = 'Edit status';
                     header('Location: index.php?pages=borrow&actions=edit&id=' . $id);
                 }
-
                 $this->borrow->edit($id, $_SESSION['status'], $_SESSION['pay_date']);
+                unset($_SESSION['pay_date']);
+                unset($_SESSION['status']);
+                header('Location: index.php?pages=borrow');
             } else {
                 $_SESSION['errorPayDate'] = 'Pay Date is invalid';
                 header('Location: index.php?pages=borrow&actions=edit&id=' . $id);
@@ -145,7 +146,6 @@ class ControllerBorrow
             header('Location: index.php?pages=borrow');
         } else {
             $id = $_REQUEST['id'];
-            $borrow = $this->borrow->getDataById('name', $id);
             include 'view/borrow/delete.php';
         }
     }

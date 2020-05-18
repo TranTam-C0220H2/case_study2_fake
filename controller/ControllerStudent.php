@@ -127,6 +127,7 @@ class ControllerStudent
                 $detailBorrow->deleteBorrowId($item->id);
                 $borrow->delete($item->id);
             }
+            unlink('images/'.$this->student->getDataById('image',$id));
             $this->student->delete($id);
             header('Location: index.php?pages=student');
         } else {

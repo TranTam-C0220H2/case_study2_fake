@@ -99,7 +99,7 @@ class ControllerCategory
             $id = $_REQUEST['id'];
             $book = new BookDB();
             $book->changeCategoryUnknown($id);
-            unlink('images/' . $this->category->getDataById('image', $id));
+            unlink('images/' . $this->category->getDataById('image', $id)->image);
             $this->category->delete($id);
             header('Location: index.php?pages=category');
         } else {

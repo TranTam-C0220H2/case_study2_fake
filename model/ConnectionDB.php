@@ -15,8 +15,8 @@ class ConnectionDB
     public function __construct()
     {
         $this->server = "mysql:host=localhost;dbname=library";
-        $this->username = "root";
-        $this->password = "774111@Tvt";
+        $this->username = "";
+        $this->password = "";
     }
 
     public function connect()

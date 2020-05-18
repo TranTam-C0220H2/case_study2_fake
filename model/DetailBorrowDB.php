@@ -51,7 +51,7 @@ class DetailBorrowDB extends LibraryDB
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
     function getBookId($borrowId) {
-        $sql = "SELECT book_id FROM $this->nameTable WHERE borrow_id = $borrowId;";
+        $sql = "SELECT book_id FROM $this->nameTable WHERE borrow_id = '$borrowId';";
         $stmt = $this->conn->query($sql);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
